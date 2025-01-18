@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Image from "next/image";
+import React, { useState } from "react";
 import { Geist, Geist_Mono } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import {
@@ -12,7 +13,7 @@ import {
   ListItem,
   ListItemText,
   Box,
-  Link
+  Link, Avatar, Button
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import  Chatbot from "@/pages/chatbot";
@@ -28,6 +29,12 @@ const geistMono = Geist_Mono({
 });
 
 export default function Home() {
+  const [open, setOpen] = useState(false);
+
+  const handleClick = () => {
+    setOpen(!open);
+  }
+
   return (
       <div className="App">
         <header style={{ background: "linear-gradient(to right, #6a11cb, #2575fc)", color: "white", padding: "20px 0", boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)" }}>
@@ -203,7 +210,11 @@ Full Stack Web Developer  · (2019 - 2020)"/>
           </Container>
         </main>
         <footer>
-          <Chatbot />
+          <Button onClick={handleClick}>
+            <img src="james.png" style={{position: "fixed", bottom: 0, right: 0}}/>
+
+          </Button>
+          {open ? <Chatbot handleClick={handleClick}/> : <></>}
         </footer>
       </div>
   );

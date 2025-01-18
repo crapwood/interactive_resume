@@ -7,13 +7,16 @@ import {
     Button,
     Paper,
     Typography,
-    Box
+    Box,
+    IconButton,
+    Avatar
 } from "@mui/material";
+import CloseIcon from '@mui/icons-material/Close';
 
-const Chatbot = () => {
+const Chatbot = ({handleClick}) => {
     const [messages, setMessages] = useState([ {
         sender: "John James Benitez",
-        text: `it's me it's not a bot....trust me`,
+        text: `I'm trained to answer questions about my personal life, my work experience, and my skills.`,
     }]);
     const [input, setInput] = useState("");
 
@@ -39,7 +42,6 @@ const Chatbot = () => {
             const userMessage = { sender: "You", text: input };
             setMessages([...messages, userMessage]);
            const response = await fetchLangflowResponse(input);
-
             const botMessage = {
                 sender: "John James Benitez",
                 text: `${response}`,
@@ -53,9 +55,15 @@ const Chatbot = () => {
     return (
         <Container style={{ marginTop: "40px" }}>
             <Paper style={{ padding: "20px", backgroundColor: "#f5f5f5" }}>
-                <Typography variant="h4" gutterBottom>
-                    Ask me anything!!!
-                </Typography>
+                <Box display="flex" alignItems="center" justifyContent="space-between">
+                    <Typography variant="h4" gutterBottom>
+                        Ask me anything!!!
+                    </Typography>
+                    <IconButton onClick={handleClick}>
+                       <CloseIcon />
+                    </IconButton>
+                </Box>
+
                 <Box
                     style={{
                         maxHeight: "300px",
@@ -71,22 +79,44 @@ const Chatbot = () => {
                         <Box
                             key={index}
                             style={{
-                                textAlign: message.sender === "You" ? "right" : "left",
                                 margin: "10px 0",
+                                display: "flex",
+                                justifyContent: message.sender === "You" ? "flex-end" : "flex-start",
                             }}
+
                         >
-                            <Typography
+                            { message.sender !== "You" ?<>
+                                <Avatar
+                                src={ "james.png"}
+                            />
+                                <Typography
                                 variant="body1"
                                 style={{
-                                    backgroundColor: message.sender === "You" ? "#d1c4e9" : "#bbdefb",
-                                    display: "inline-block",
-                                    padding: "10px 15px",
-                                    borderRadius: "15px",
-                                    maxWidth: "75%",
-                                }}
-                            >
-                                <strong>{message.sender}:</strong> {message.text}
-                            </Typography>
+                                backgroundColor: "#bbdefb",
+                                display: "inline-block",
+                                padding: "10px 15px",
+                                borderRadius: "15px",
+                                maxWidth: "75%",
+                            }}
+                        >
+                            {message.text}
+                        </Typography></> : <>
+                                <Typography
+                                    variant="body1"
+                                    style={{
+                                        backgroundColor:  "#d1c4e9" ,
+                                        display: "inline-block",
+                                        padding: "10px 15px",
+                                        borderRadius: "15px",
+                                        maxWidth: "75%",
+                                    }}
+                                >
+                                    {message.text}
+                                </Typography>
+                                <Avatar
+                                    src={ ""}
+                                />
+                            </>}
                         </Box>
                     ))}
                 </Box>
