@@ -10,7 +10,7 @@ import {
     Box
 } from "@mui/material";
 
-export const Chatbot = () => {
+const Chatbot = () => {
     const [messages, setMessages] = useState([ {
         sender: "John James Benitez",
         text: `it's me it's not a bot....trust me`,
@@ -109,3 +109,4 @@ export const Chatbot = () => {
         </Container>
     );
 };
+export default Chatbot;

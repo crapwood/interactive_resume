@@ -15,7 +15,7 @@ import {
   Link
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
-import { Chatbot } from "@/pages/chatbot";
+import  Chatbot from "@/pages/chatbot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
